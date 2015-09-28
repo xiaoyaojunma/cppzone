@@ -59,6 +59,9 @@ void new_maze()
     if(g_app.type == maze::fixed) {
         g_app.sp_maze = fixed();
     }
+    else if(g_app.type == maze::fixed_small) {
+        g_app.sp_maze = fixed_small();
+    }
     else if(g_app.type == maze::empty) {
         g_app.sp_maze = empty_maze(g_app.maze_width, g_app.maze_height);
     }
@@ -131,7 +134,7 @@ void display()
             glEnd();
         }
     }
-    
+
     // solution
     {
         glColor3d(1, 0.5, 0);
@@ -153,7 +156,7 @@ void display()
             glEnd();
         }
     }
-    
+
     // start
     {
         vertex_descriptor s = g_app.sp_maze->source();
@@ -227,7 +230,7 @@ void display()
             glEnd();
         }
     }
-    
+
     glFlush();
     glutSwapBuffers();
 }
@@ -248,12 +251,17 @@ void keyboard(unsigned char key, int x, int y)
         break;
 
     case '2':
-        g_app.type = maze::empty;
+        g_app.type = maze::fixed_small;
         new_maze();
         break;
 
     case '3':
         g_app.type = maze::random;
+        new_maze();
+        break;
+
+    case '4':
+        g_app.type = maze::empty;
         new_maze();
         break;
 
